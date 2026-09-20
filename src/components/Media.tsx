@@ -1,74 +1,85 @@
 import { useId } from "react";
 import type { Scene } from "@/data/site";
-import { Ornament } from "./Ornament";
 
 type Tone = { a: string; b: string; ink: string; glow: string };
 
+const navy = "#0d2147";
 const tones: Record<Scene, Tone> = {
-  house: { a: "#0c1d3a", b: "#2a3f63", ink: "#f6efe3", glow: "#f3c77a" },
-  garden: { a: "#14251d", b: "#3d5f49", ink: "#a9bba3", glow: "#d8b06c" },
-  queen: { a: "#132b52", b: "#3a4d72", ink: "#ebe0cc", glow: "#f3c77a" },
-  suite: { a: "#241a2f", b: "#5b3d4d", ink: "#ebe0cc", glow: "#f3c77a" },
-  twin: { a: "#132b52", b: "#2e5a63", ink: "#ebe0cc", glow: "#f3c77a" },
-  triple: { a: "#1d3d6d", b: "#3f6a72", ink: "#ebe0cc", glow: "#f3c77a" },
-  breakfast: { a: "#7a3a26", b: "#d19a62", ink: "#fbf7ef", glow: "#fbe3b0" },
-  fireplace: { a: "#08132a", b: "#3b2a3a", ink: "#f6efe3", glow: "#ff9a4d" },
-  lounge: { a: "#1c3428", b: "#4b6a55", ink: "#f6efe3", glow: "#f3c77a" },
-  kids: { a: "#b4573a", b: "#d8b06c", ink: "#fbf7ef", glow: "#fbf7ef" },
-  cafe: { a: "#3a2a22", b: "#a5715a", ink: "#fbf7ef", glow: "#fbe3b0" },
-  detail: { a: "#ebe0cc", b: "#d9caae", ink: "#0c1d3a", glow: "#b4573a" },
+  house: { a: "#eef4fb", b: "#d3e2f4", ink: navy, glow: "#f6dfae" },
+  garden: { a: "#eaf2f0", b: "#cfe1dc", ink: "#2f5f57", glow: "#f6dfae" },
+  queen: { a: "#eef4fb", b: "#d6e4f4", ink: navy, glow: "#f6dfae" },
+  suite: { a: "#f1f0f8", b: "#d9dcf0", ink: navy, glow: "#f6dfae" },
+  twin: { a: "#edf4f8", b: "#d2e4ee", ink: navy, glow: "#f6dfae" },
+  triple: { a: "#eef3fa", b: "#d4e0f2", ink: navy, glow: "#f6dfae" },
+  breakfast: { a: "#f8f2e7", b: "#eadcc3", ink: navy, glow: "#f6dfae" },
+  fireplace: { a: "#e4ebf6", b: "#c7d6ec", ink: navy, glow: "#f2a25c" },
+  lounge: { a: "#eef3f9", b: "#d8e4f1", ink: navy, glow: "#f6dfae" },
+  kids: { a: "#f7efe3", b: "#ecd9bd", ink: navy, glow: "#f6dfae" },
+  cafe: { a: "#f6efe4", b: "#e6d3b8", ink: navy, glow: "#f6dfae" },
+  detail: { a: "#f4f8fc", b: "#e2ecf8", ink: navy, glow: "#f6dfae" },
 };
 
 function Bed({ x, y, w = 150, tone }: { x: number; y: number; w?: number; tone: Tone }) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      <rect x="0" y="-44" width={w} height="44" rx="6" fill={tone.ink} opacity="0.28" />
-      <rect x="-6" y="0" width={w + 12} height="54" rx="10" fill={tone.ink} opacity="0.85" />
-      <rect x="8" y="-16" width={w * 0.38} height="22" rx="8" fill="#fff" opacity="0.9" />
-      <rect x={w - 8 - w * 0.38} y="-16" width={w * 0.38} height="22" rx="8" fill="#fff" opacity="0.9" />
-      <rect x="-4" y="54" width="8" height="20" fill={tone.ink} opacity="0.5" />
-      <rect x={w - 4} y="54" width="8" height="20" fill={tone.ink} opacity="0.5" />
+      <rect x="0" y="-44" width={w} height="44" rx="4" fill={tone.ink} opacity="0.16" />
+      <rect x="-6" y="0" width={w + 12} height="54" rx="6" fill={tone.ink} opacity="0.88" />
+      <rect x="8" y="-16" width={w * 0.38} height="22" rx="6" fill="#fff" />
+      <rect x={w - 8 - w * 0.38} y="-16" width={w * 0.38} height="22" rx="6" fill="#fff" />
+      <rect x="-4" y="54" width="7" height="18" fill={tone.ink} opacity="0.6" />
+      <rect x={w - 3} y="54" width="7" height="18" fill={tone.ink} opacity="0.6" />
     </g>
   );
 }
 
-function Art({ scene, tone, id }: { scene: Scene; tone: Tone; id: string }) {
+function Window({ x, y, w, h, tone }: { x: number; y: number; w: number; h: number; tone: Tone }) {
+  return (
+    <g>
+      <rect x={x} y={y} width={w} height={h} rx={w / 2} fill={tone.glow} />
+      <rect x={x} y={y} width={w} height={h} rx={w / 2} fill="none" stroke={tone.ink} strokeWidth="4" />
+      <path d={`M${x + w / 2} ${y}v${h}M${x} ${y + h / 2}h${w}`} stroke={tone.ink} strokeWidth="3" />
+    </g>
+  );
+}
+
+function Art({ scene, tone }: { scene: Scene; tone: Tone }) {
   switch (scene) {
     case "house":
       return (
         <g>
-          <path d="M60 330V250L200 150l140 100v80Z" fill={tone.ink} opacity="0.92" />
-          <path d="M40 262L200 138l160 124" stroke={tone.ink} strokeWidth="10" strokeLinecap="round" fill="none" />
-          <rect x="298" y="150" width="22" height="50" fill="#b4573a" />
-          {[110, 160, 230, 280].map((x) => (
-            <rect key={x} x={x - 14} y="270" width="28" height="42" rx="3" fill={tone.glow} filter={`url(#${id}g)`} />
+          <rect x="70" y="250" width="260" height="120" fill="#fff" />
+          <rect x="70" y="250" width="260" height="120" fill="none" stroke={tone.ink} strokeWidth="3" />
+          <path d="M44 262L200 140l156 122" stroke={tone.ink} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path d="M60 254L200 150l140 104Z" fill={tone.ink} opacity="0.92" />
+          <rect x="292" y="152" width="20" height="48" fill="#b9684d" />
+          <circle cx="200" cy="216" r="22" fill={tone.glow} stroke="#fff" strokeWidth="3" />
+          {[108, 162, 238, 292].map((x) => (
+            <rect key={x} x={x - 14} y="276" width="28" height="42" rx="2" fill={tone.glow} stroke={tone.ink} strokeWidth="3" />
           ))}
-          <rect x="176" y="188" width="48" height="44" rx="24" fill={tone.glow} filter={`url(#${id}g)`} />
-          <rect x="0" y="330" width="400" height="170" fill="#08132a" opacity="0.55" />
+          <path d="M20 370h360" stroke={tone.ink} strokeWidth="3" />
         </g>
       );
     case "garden":
       return (
         <g fill={tone.ink}>
           {[-50, -25, 0, 25, 50].map((r, i) => (
-            <path key={r} d="M200 470C150 380 160 290 200 210 240 290 250 380 200 470Z" transform={`rotate(${r} 200 470)`} opacity={0.35 + i * 0.1} />
+            <path key={r} d="M200 470C150 380 160 290 200 210 240 290 250 380 200 470Z" transform={`rotate(${r} 200 470)`} opacity={0.3 + i * 0.1} />
           ))}
-          <path d="M60 470c20-80 70-110 130-120-20 60-60 100-130 120Z" opacity="0.5" />
-          <path d="M340 470c-20-80-70-110-130-120 20 60 60 100 130 120Z" opacity="0.5" />
-          <path d="M296 178q8-9 16 0 8-9 16 0" stroke={tone.glow} strokeWidth="3" fill="none" strokeLinecap="round" />
+          <path d="M60 470c20-80 70-110 130-120-20 60-60 100-130 120Z" opacity="0.45" />
+          <path d="M340 470c-20-80-70-110-130-120 20 60 60 100 130 120Z" opacity="0.45" />
+          <path d="M296 178q8-9 16 0 8-9 16 0" stroke={tone.ink} strokeWidth="3" fill="none" strokeLinecap="round" />
         </g>
       );
     case "queen":
     case "suite":
       return (
         <g>
-          <rect x="130" y="80" width="140" height="150" rx="70" fill={tone.glow} opacity="0.85" filter={`url(#${id}g)`} />
-          <path d="M200 80v150M130 155h140" stroke={tone.a} strokeWidth="5" />
+          <Window x={130} y={80} w={140} h={150} tone={tone} />
           {scene === "suite" && (
             <>
-              <path d="M100 60c30 40 30 130 0 190M300 60c-30 40-30 130 0 190" stroke={tone.ink} strokeWidth="14" fill="none" opacity="0.3" />
-              <circle cx="330" cy="330" r="16" fill={tone.glow} filter={`url(#${id}g)`} />
-              <rect x="326" y="346" width="8" height="40" fill={tone.ink} opacity="0.6" />
+              <path d="M100 60c30 40 30 130 0 190M300 60c-30 40-30 130 0 190" stroke={tone.ink} strokeWidth="12" fill="none" opacity="0.25" />
+              <circle cx="336" cy="332" r="15" fill={tone.glow} stroke={tone.ink} strokeWidth="3" />
+              <rect x="332" y="347" width="8" height="40" fill={tone.ink} opacity="0.7" />
             </>
           )}
           <Bed x={95} y={330} w={210} tone={tone} />
@@ -77,7 +88,7 @@ function Art({ scene, tone, id }: { scene: Scene; tone: Tone; id: string }) {
     case "twin":
       return (
         <g>
-          <rect x="150" y="90" width="100" height="120" rx="50" fill={tone.glow} opacity="0.8" filter={`url(#${id}g)`} />
+          <Window x={150} y={90} w={100} h={120} tone={tone} />
           <Bed x={30} y={340} w={140} tone={tone} />
           <Bed x={230} y={340} w={140} tone={tone} />
         </g>
@@ -85,105 +96,114 @@ function Art({ scene, tone, id }: { scene: Scene; tone: Tone; id: string }) {
     case "triple":
       return (
         <g>
-          <rect x="160" y="80" width="80" height="100" rx="40" fill={tone.glow} opacity="0.8" filter={`url(#${id}g)`} />
+          <Window x={160} y={80} w={80} h={100} tone={tone} />
           <Bed x={14} y={300} w={110} tone={tone} />
           <Bed x={144} y={300} w={110} tone={tone} />
           <Bed x={274} y={300} w={110} tone={tone} />
-          <rect x="14" y="410" width="372" height="6" rx="3" fill={tone.ink} opacity="0.2" />
         </g>
       );
     case "breakfast":
       return (
         <g>
-          <ellipse cx="200" cy="350" rx="150" ry="26" fill="#000" opacity="0.18" />
-          <ellipse cx="200" cy="320" rx="120" ry="30" fill={tone.ink} opacity="0.95" />
-          <ellipse cx="200" cy="316" rx="82" ry="18" fill={tone.b} opacity="0.55" />
-          <path d="M280 250h60v50a30 30 0 0 1-30 30 30 30 0 0 1-30-30v-50Z" fill={tone.ink} opacity="0.92" />
-          <path d="M340 264h14a14 14 0 0 1 0 28h-14" stroke={tone.ink} strokeWidth="6" fill="none" />
-          <path d="M300 230c-8 14 8 16 0 30M320 230c-8 14 8 16 0 30" stroke={tone.ink} strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.6" />
-          <ellipse cx="120" cy="270" rx="46" ry="26" fill="#f0c98a" />
-          <path d="M92 266q28-22 56 0" stroke="#b47a3c" strokeWidth="4" fill="none" />
+          <ellipse cx="200" cy="350" rx="150" ry="24" fill={tone.ink} opacity="0.1" />
+          <ellipse cx="200" cy="320" rx="120" ry="30" fill="#fff" stroke={tone.ink} strokeWidth="3" />
+          <ellipse cx="200" cy="316" rx="80" ry="17" fill={tone.b} />
+          <path d="M280 250h60v50a30 30 0 0 1-30 30 30 30 0 0 1-30-30v-50Z" fill="#fff" stroke={tone.ink} strokeWidth="3" />
+          <path d="M340 264h14a14 14 0 0 1 0 28h-14" stroke={tone.ink} strokeWidth="5" fill="none" />
+          <path d="M300 230c-8 14 8 16 0 30M320 230c-8 14 8 16 0 30" stroke={tone.ink} strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.5" />
+          <ellipse cx="120" cy="272" rx="46" ry="26" fill="#e9bf7f" />
+          <path d="M92 268q28-22 56 0" stroke="#b47a3c" strokeWidth="4" fill="none" />
         </g>
       );
     case "fireplace":
       return (
         <g>
-          <path d="M200 150c14 50 70 66 70 130a70 70 0 0 1-140 0c0-30 14-48 30-64 0 22 14 32 24 32-4-46-8-70 16-98Z" fill={tone.glow} filter={`url(#${id}g)`} />
-          <path d="M200 230c8 26 36 34 36 66a36 36 0 0 1-72 0c0-16 8-26 16-34 0 12 8 18 12 18-2-24-4-36 8-50Z" fill="#ffd9a0" />
-          <path d="M110 372l180-24M110 350l180 24" stroke="#5a3a26" strokeWidth="14" strokeLinecap="round" />
+          <path d="M200 150c14 50 70 66 70 130a70 70 0 0 1-140 0c0-30 14-48 30-64 0 22 14 32 24 32-4-46-8-70 16-98Z" fill={tone.glow} />
+          <path d="M200 230c8 26 36 34 36 66a36 36 0 0 1-72 0c0-16 8-26 16-34 0 12 8 18 12 18-2-24-4-36 8-50Z" fill="#ffe7b8" />
+          <path d="M110 372l180-24M110 350l180 24" stroke={tone.ink} strokeWidth="13" strokeLinecap="round" opacity="0.85" />
           {[70, 330, 300, 100, 340].map((x, i) => (
-            <circle key={x} cx={x} cy={60 + i * 34} r="2.2" fill={tone.ink} opacity="0.8" />
+            <circle key={x} cx={x} cy={60 + i * 34} r="2.4" fill={tone.ink} opacity="0.5" />
           ))}
         </g>
       );
     case "lounge":
       return (
         <g>
-          <path d="M60 300v-50a34 34 0 0 1 34-34h212a34 34 0 0 1 34 34v50Z" fill={tone.ink} opacity="0.85" />
-          <rect x="44" y="290" width="312" height="60" rx="18" fill={tone.ink} opacity="0.95" />
-          <rect x="80" y="350" width="10" height="26" fill={tone.ink} opacity="0.5" />
-          <rect x="310" y="350" width="10" height="26" fill={tone.ink} opacity="0.5" />
-          <path d="M340 110v150" stroke={tone.ink} strokeWidth="5" opacity="0.6" />
-          <path d="M310 110h60l-12 40h-36Z" fill={tone.glow} filter={`url(#${id}g)`} />
+          <path d="M60 300v-50a34 34 0 0 1 34-34h212a34 34 0 0 1 34 34v50Z" fill={tone.ink} opacity="0.7" />
+          <rect x="44" y="290" width="312" height="60" rx="14" fill={tone.ink} opacity="0.92" />
+          <rect x="80" y="350" width="9" height="26" fill={tone.ink} opacity="0.6" />
+          <rect x="311" y="350" width="9" height="26" fill={tone.ink} opacity="0.6" />
+          <path d="M340 110v150" stroke={tone.ink} strokeWidth="4" opacity="0.7" />
+          <path d="M310 110h60l-12 40h-36Z" fill={tone.glow} stroke={tone.ink} strokeWidth="3" />
         </g>
       );
     case "kids":
       return (
         <g>
-          <rect x="70" y="300" width="86" height="86" rx="10" fill={tone.ink} opacity="0.95" />
-          <rect x="170" y="300" width="86" height="86" rx="10" fill="#0c1d3a" opacity="0.8" />
-          <rect x="120" y="212" width="86" height="86" rx="10" fill={tone.ink} opacity="0.7" transform="rotate(-8 163 255)" />
-          <circle cx="300" cy="330" r="42" fill="#98442c" opacity="0.85" />
+          <rect x="70" y="300" width="86" height="86" rx="6" fill={tone.ink} opacity="0.9" />
+          <rect x="170" y="300" width="86" height="86" rx="6" fill="#fff" stroke={tone.ink} strokeWidth="3" />
+          <rect x="120" y="212" width="86" height="86" rx="6" fill={tone.b} stroke={tone.ink} strokeWidth="3" transform="rotate(-8 163 255)" />
+          <circle cx="300" cy="330" r="42" fill="#b9684d" opacity="0.9" />
           <path d="M300 130l10 24 26 3-19 18 6 26-23-13-23 13 6-26-19-18 26-3Z" fill={tone.ink} />
         </g>
       );
     case "cafe":
       return (
         <g>
-          <path d="M110 240h150v70a75 75 0 0 1-75 75 75 75 0 0 1-75-75v-70Z" fill={tone.ink} opacity="0.95" />
-          <path d="M260 262h22a26 26 0 0 1 0 52h-22" stroke={tone.ink} strokeWidth="10" fill="none" />
-          <path d="M140 200c-10 20 10 24 0 46M185 200c-10 20 10 24 0 46M230 200c-10 20 10 24 0 46" stroke={tone.ink} strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.6" />
-          <rect x="90" y="396" width="220" height="8" rx="4" fill={tone.ink} opacity="0.5" />
+          <path d="M110 240h150v70a75 75 0 0 1-75 75 75 75 0 0 1-75-75v-70Z" fill="#fff" stroke={tone.ink} strokeWidth="3" />
+          <path d="M260 262h22a26 26 0 0 1 0 52h-22" stroke={tone.ink} strokeWidth="9" fill="none" />
+          <path d="M140 200c-10 20 10 24 0 46M185 200c-10 20 10 24 0 46M230 200c-10 20 10 24 0 46" stroke={tone.ink} strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.45" />
+          <rect x="90" y="396" width="220" height="7" rx="3" fill={tone.ink} opacity="0.4" />
         </g>
       );
     case "detail":
     default:
-      return null;
+      return <Flower tone={tone} />;
   }
 }
 
-/** Espaço reservado ilustrado: usado enquanto a foto real da hospedagem não foi enviada. */
+/** Flor de papel recortado (ornamento original inspirado nos recortes poloneses). */
+function Flower({ tone }: { tone: Tone }) {
+  const petals = Array.from({ length: 8 }, (_, i) => i * 45);
+  return (
+    <g transform="translate(200 250) scale(1.6)" fill="none" stroke={tone.ink} strokeWidth="1.6">
+      {petals.map((a) => (
+        <path key={a} d="M0 -14C-19 -34-15 -66 0 -90 15 -66 19 -34 0 -14Z" transform={`rotate(${a})`} />
+      ))}
+      {petals.map((a) => (
+        <path key={`i${a}`} d="M0 -12C-8 -26-7 -42 0 -54 7 -42 8 -26 0 -12Z" transform={`rotate(${a + 22.5})`} fill={tone.ink} fillOpacity="0.14" />
+      ))}
+      <circle r="10" />
+      <circle r="4" fill={tone.ink} />
+    </g>
+  );
+}
+
+/** Espaço reservado editorial: usado enquanto a foto real da hospedagem não foi enviada. */
 export function PlaceholderArt({ scene, label, raised = false }: { scene: Scene; label?: string; raised?: boolean }) {
   const id = useId().replace(/:/g, "");
   const tone = tones[scene];
   return (
     <div className="absolute inset-0 overflow-hidden" data-placeholder>
-      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}>
+      <svg
+        viewBox="0 0 400 500"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+        {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}
+      >
         <defs>
-          <linearGradient id={`${id}bg`} x1="0" y1="0" x2="0.4" y2="1">
+          <linearGradient id={`${id}bg`} x1="0" y1="0" x2="0.3" y2="1">
             <stop offset="0" stopColor={tone.a} />
             <stop offset="1" stopColor={tone.b} />
           </linearGradient>
-          <filter id={`${id}g`} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="8" result="b" />
-            <feMerge>
-              <feMergeNode in="b" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
         <rect width="400" height="500" fill={`url(#${id}bg)`} />
-        {scene === "detail" ? (
-          <Ornament x={30} y={70} width={340} height={340} color={tone.ink} opacity={0.85} />
-        ) : (
-          <Ornament x={190} y={-30} width={280} height={280} color={tone.ink} opacity={0.12} />
-        )}
         <g transform={raised && scene !== "detail" ? "translate(50 -10) scale(0.75)" : undefined}>
-          <Art scene={scene} tone={tone} id={id} />
+          <Art scene={scene} tone={tone} />
         </g>
       </svg>
       {label && (
-        <span className="absolute right-3 top-3 rounded-full bg-black/35 px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-white/85 backdrop-blur">
+        <span className="absolute left-3 top-3 bg-white/90 px-2.5 py-1 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-navy-900">
           Foto oficial em breve
         </span>
       )}
@@ -198,7 +218,7 @@ type MediaProps = {
   className?: string;
   priority?: boolean;
   showLabel?: boolean;
-  /** Sobe a ilustração do espaço reservado para não colidir com texto sobreposto (cards). */
+  /** Sobe a ilustração do espaço reservado para não colidir com texto sobreposto. */
   raised?: boolean;
 };
 

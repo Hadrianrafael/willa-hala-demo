@@ -127,13 +127,13 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
             onClick={() => open(i)}
             aria-label={`Ampliar foto: ${item.alt}`}
             aria-haspopup="dialog"
-            className={`group relative overflow-hidden rounded-2xl bg-navy-800 text-left ${item.span}`}
+            className={`group relative overflow-hidden bg-sky-100 text-left ${item.span}`}
           >
             <div className="absolute inset-0 transition-transform duration-[1400ms] ease-[var(--ease-cine)] group-hover:scale-[1.07] group-focus-visible:scale-[1.07]">
               <Media src={item.src} scene={item.scene} alt={item.alt} showLabel={false} />
             </div>
-            <span className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden="true" />
-            <span className="absolute bottom-4 left-4 right-4 translate-y-2 text-sm tracking-wide text-cream-50 opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+            <span className="absolute inset-0 bg-gradient-to-t from-navy-950/75 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden="true" />
+            <span className="absolute bottom-4 left-4 right-4 translate-y-2 text-sm tracking-wide text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
               {item.alt}
             </span>
           </button>
@@ -141,23 +141,23 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
       </div>
 
       {current && active !== null && (
-        <div ref={overlay} role="dialog" aria-modal="true" aria-label="Galeria de fotos" className="fixed inset-0 z-[80] flex flex-col bg-navy-950/95 backdrop-blur-sm">
-          <div className="flex items-center justify-between px-5 py-4 text-cream-50 sm:px-10">
-            <span className="eyebrow text-gold-400" aria-live="polite">
+        <div ref={overlay} role="dialog" aria-modal="true" aria-label="Galeria de fotos" className="fixed inset-0 z-[80] flex flex-col bg-navy-950/96 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-5 py-4 text-white sm:px-10">
+            <span className="small-caps text-sky-300" aria-live="polite">
               {String(active + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
             </span>
-            <button ref={closeBtn} type="button" onClick={close} aria-label="Fechar galeria" className="grid h-11 w-11 place-items-center rounded-full border border-cream-50/30 transition hover:bg-cream-50 hover:text-navy-950">
+            <button ref={closeBtn} type="button" onClick={close} aria-label="Fechar galeria" className="grid h-11 w-11 place-items-center rounded-full border border-white/40 transition hover:bg-white hover:text-navy-950">
               <Icon name="close" />
             </button>
           </div>
 
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 sm:px-20">
-            <button type="button" onClick={() => go(-1)} aria-label="Foto anterior" className="absolute left-2 z-10 grid h-11 w-11 place-items-center rounded-full border border-cream-50/30 bg-navy-950/50 text-cream-50 transition hover:bg-cream-50 hover:text-navy-950 sm:left-6">
+            <button type="button" onClick={() => go(-1)} aria-label="Foto anterior" className="absolute left-2 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/40 bg-navy-950/50 text-white transition hover:bg-white hover:text-navy-950 sm:left-6">
               <Icon name="prev" />
             </button>
             <figure
               ref={figure}
-              className="relative aspect-[4/3] max-h-full w-full max-w-[min(94vw,1100px)] touch-pan-y overflow-hidden rounded-2xl bg-navy-900"
+              className="relative aspect-[4/3] max-h-full w-full max-w-[min(94vw,1100px)] touch-pan-y overflow-hidden bg-navy-900"
               onPointerDown={(e) => (swipe.current = e.clientX)}
               onPointerUp={(e) => {
                 if (swipe.current === null) return;
@@ -168,12 +168,12 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
             >
               <Media src={current.src} scene={current.scene} alt={current.alt} showLabel className="!object-contain" />
             </figure>
-            <button type="button" onClick={() => go(1)} aria-label="Próxima foto" className="absolute right-2 z-10 grid h-11 w-11 place-items-center rounded-full border border-cream-50/30 bg-navy-950/50 text-cream-50 transition hover:bg-cream-50 hover:text-navy-950 sm:right-6">
+            <button type="button" onClick={() => go(1)} aria-label="Próxima foto" className="absolute right-2 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/40 bg-navy-950/50 text-white transition hover:bg-white hover:text-navy-950 sm:right-6">
               <Icon name="next" />
             </button>
           </div>
 
-          <p className="display px-5 py-5 text-center text-2xl italic text-cream-50 sm:text-3xl">{current.alt}</p>
+          <p className="display px-5 py-5 text-center text-2xl italic text-white sm:text-3xl">{current.alt}</p>
         </div>
       )}
     </>

@@ -9,6 +9,7 @@ import { Hero } from "@/components/Hero";
 import { Location } from "@/components/Location";
 import { Motion } from "@/components/Motion";
 import { Reservations } from "@/components/Reservations";
+import { Reviews } from "@/components/Reviews";
 import { Rooms } from "@/components/Rooms";
 import { photoSrc } from "@/lib/photos";
 
@@ -18,8 +19,9 @@ export default function Home() {
       <Curtain />
       <Header />
       <main>
-        <Hero heroSrc={photoSrc("hero")} />
+        <Hero heroSrc={photoSrc("hero")} heroSecondSrc={photoSrc("hero-2")} />
         <About />
+        <Reviews />
         <Rooms />
         <GallerySection />
         <Experiences />

@@ -21,7 +21,7 @@ if (!input || !fs.existsSync(input)) {
 const out = path.join(process.cwd(), "public", "photos");
 fs.mkdirSync(out, { recursive: true });
 
-const MAX_WIDTH = { hero: 2400 };
+const MAX_WIDTH = { hero: 2200 };
 const DEFAULT_WIDTH = 1800;
 const exts = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".tif", ".tiff", ".heic"]);
 

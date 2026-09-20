@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: "400",
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   display: "swap",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08132a",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -39,7 +39,7 @@ const motionGate = `(function(){try{var d=document.documentElement;if(!window.ma
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${instrument.variable} ${hanken.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionGate }} />
       </head>

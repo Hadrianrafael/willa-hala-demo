@@ -12,7 +12,7 @@ export function Header() {
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 80);
+    const onScroll = () => setSolid(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,9 +26,8 @@ export function Header() {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduce && menuRef.current) {
-      gsap.fromTo(menuRef.current.querySelectorAll("a"), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.07, ease: "expo.out" });
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && menuRef.current) {
+      gsap.fromTo(menuRef.current.querySelectorAll("a"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.06, ease: "expo.out" });
     }
     menuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
     const btn = toggleRef.current;
@@ -41,45 +40,53 @@ export function Header() {
 
   return (
     <>
-    <header className={`fixed inset-x-0 top-0 z-50 transition-[background,backdrop-filter,padding] duration-500 ${solid || open ? "bg-navy-950/85 py-3 backdrop-blur-md" : "py-5"}`}>
-      <div className="mx-auto flex max-w-[92rem] items-center justify-between px-5 sm:px-10">
-        <a href="#inicio" className="group flex items-baseline gap-3 text-cream-50" onClick={() => setOpen(false)}>
-          <span className="display whitespace-nowrap text-3xl italic leading-none">Willa Hala</span>
-          <span className="eyebrow hidden whitespace-nowrap text-[0.6rem] text-gold-400 xl:inline">Vinhedo · SP</span>
-        </a>
-
-        <nav aria-label="Principal" className="hidden items-center gap-6 xl:gap-8 lg:flex">
-          {nav.map((item) => (
-            <a key={item.href} href={item.href} className="group relative whitespace-nowrap text-[0.72rem] uppercase tracking-[0.18em] text-cream-100/85 xl:text-[0.78rem] xl:tracking-[0.2em] transition-colors hover:text-gold-400">
-              {item.label}
-              <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gold-400 transition-transform duration-500 ease-[var(--ease-cine)] group-hover:scale-x-100" />
-            </a>
-          ))}
-          <a href="#reservas" className="btn btn-gold !min-h-11 !px-6">
-            Reservar
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,padding] duration-500 ${
+          solid || open ? "bg-white/95 py-3 shadow-[0_1px_0_var(--color-line)] backdrop-blur-md" : "py-5"
+        }`}
+      >
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between px-5 sm:px-10">
+          <a href="#inicio" className="flex items-baseline gap-3 text-navy-900" onClick={() => setOpen(false)}>
+            <span className="display whitespace-nowrap text-[1.75rem] italic leading-none">Willa Hala</span>
+            <span className="small-caps hidden whitespace-nowrap text-[0.6rem] text-mute xl:inline">Vinhedo · SP</span>
           </a>
-        </nav>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className="grid h-11 w-11 place-items-center rounded-full border border-cream-50/30 text-cream-50 lg:hidden"
-          aria-expanded={open}
-          aria-controls="menu-mobile"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <Icon name={open ? "close" : "menu"} />
-        </button>
-      </div>
+          <nav aria-label="Principal" className="hidden items-center gap-7 lg:flex xl:gap-9">
+            {nav.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="group relative whitespace-nowrap py-1 text-[0.74rem] font-medium uppercase tracking-[0.16em] text-navy-900 transition-colors hover:text-navy-700"
+              >
+                {item.label}
+                <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-navy-900 transition-transform duration-500 ease-[var(--ease-cine)] group-hover:scale-x-100" />
+              </a>
+            ))}
+            <a href="#reservas" className="btn btn-solid !min-h-10 !px-5">
+              Reservar
+            </a>
+          </nav>
 
-    </header>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="grid h-11 w-11 place-items-center border border-navy-900/25 text-navy-900 lg:hidden"
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <Icon name={open ? "close" : "menu"} />
+          </button>
+        </div>
+      </header>
 
       {open && (
-        <div id="menu-mobile" ref={menuRef} className="fixed inset-0 z-40 flex flex-col justify-center gap-2 bg-navy-950 px-8 pt-20 lg:hidden">
-          {[...nav, { href: "#reservas", label: "Reservas" }].map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="display border-b border-cream-50/10 py-4 text-4xl italic text-cream-50">
-              {item.label}
+        <div id="menu-mobile" ref={menuRef} className="fixed inset-0 z-40 flex flex-col justify-center bg-white px-6 pt-20 lg:hidden">
+          {[...nav, { href: "#reservas", label: "Reservas" }].map((item, i) => (
+            <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex items-baseline gap-4 border-b border-line py-4">
+              <span className="small-caps w-6 text-mute">{String(i + 1).padStart(2, "0")}</span>
+              <span className="display text-4xl italic">{item.label}</span>
             </a>
           ))}
         </div>

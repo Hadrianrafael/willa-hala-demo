@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Icon } from "./Icon";
-import { Ornament } from "./Ornament";
 
 /** O mapa do Google só é carregado quando o visitante pede (mais rápido e mais privado). */
 export function MapEmbed({ src, fallbackHref }: { src: string; fallbackHref: string }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.75rem] bg-moss-800 shadow-2xl shadow-black/30 lg:aspect-auto lg:h-full lg:min-h-[26rem]">
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-sky-100 lg:aspect-auto lg:h-full lg:min-h-[26rem]">
       {loaded ? (
         <iframe
           title="Mapa: localização da Willa Hala em Vinhedo"
@@ -20,27 +19,27 @@ export function MapEmbed({ src, fallbackHref }: { src: string; fallbackHref: str
           allowFullScreen
         />
       ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-6 text-center text-cream-50">
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full opacity-60" aria-hidden="true">
-            <rect width="400" height="300" fill="#1c3428" />
-            <path d="M-10 210C60 170 120 200 190 160S320 120 410 150" stroke="#d8b06c" strokeWidth="3" fill="none" opacity="0.7" strokeDasharray="2 8" strokeLinecap="round" />
-            <path d="M-10 90C80 100 140 60 230 80S340 60 410 40" stroke="#a9bba3" strokeWidth="2" fill="none" opacity="0.5" />
-            <path d="M120 -10C130 80 90 150 130 310" stroke="#a9bba3" strokeWidth="2" fill="none" opacity="0.35" />
-            <path d="M300 -10C280 90 330 190 290 310" stroke="#a9bba3" strokeWidth="2" fill="none" opacity="0.35" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-6 text-center">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <rect width="400" height="300" fill="#e8f0f9" />
+            <path d="M-10 220C60 180 120 210 190 168S320 128 410 158" stroke="#0d2147" strokeWidth="2" fill="none" strokeDasharray="2 7" strokeLinecap="round" />
+            <path d="M-10 92C80 102 140 62 230 82S340 62 410 42" stroke="#b7cfeb" strokeWidth="6" fill="none" />
+            <path d="M120 -10C132 82 92 152 132 310" stroke="#d4e3f4" strokeWidth="6" fill="none" />
+            <path d="M300 -10C280 92 332 192 290 310" stroke="#d4e3f4" strokeWidth="6" fill="none" />
+            <path d="M-10 250C90 236 150 262 260 244S360 232 410 240" stroke="#d4e3f4" strokeWidth="4" fill="none" />
           </svg>
-          <Ornament className="absolute h-72 w-72 text-cream-50/[0.06]" />
-          <span className="relative grid h-14 w-14 place-items-center rounded-full bg-gold-400 text-navy-950 shadow-lg shadow-black/30">
+          <span className="relative grid h-12 w-12 place-items-center bg-navy-900 text-white">
             <Icon name="pin" className="h-6 w-6" />
           </span>
           <div className="relative">
             <p className="display text-3xl italic">Willa Hala</p>
-            <p className="mt-1 text-sm text-cream-100/80">Chácaras São Bento · Vinhedo, SP</p>
+            <p className="mt-1 text-sm text-ink">Chácaras São Bento · Vinhedo, SP</p>
           </div>
           <div className="relative flex flex-wrap justify-center gap-3">
-            <button type="button" onClick={() => setLoaded(true)} className="btn btn-gold !min-h-11 !px-6">
+            <button type="button" onClick={() => setLoaded(true)} className="btn btn-solid !min-h-11 !px-6">
               Ver mapa aqui
             </button>
-            <a href={fallbackHref} target="_blank" rel="noopener noreferrer" className="btn btn-ghost !min-h-11 !px-6">
+            <a href={fallbackHref} target="_blank" rel="noopener noreferrer" className="btn btn-line !min-h-11 !bg-white !px-6">
               Abrir no Google Maps
             </a>
           </div>

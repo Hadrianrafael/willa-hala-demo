@@ -19,18 +19,19 @@ selo "Foto oficial em breve".
 
 > Dica: se preferir colocar os arquivos direto em `public/photos/`, use `.jpg`, `.webp` ou `.png` com o nome do slot.
 
-## Lista de slots (23)
+## Lista de slots (24)
 
 | Slot | Onde aparece | O que fotografar / pedir | Orientação ideal |
 |---|---|---|---|
-| `hero` | Abertura em tela cheia | Fachada da casa, de preferência ao entardecer/luz quente. É a foto mais importante. | Horizontal, ≥ 2400 px |
-| `sobre-1` | "A hospedagem" (arco grande) | Fachada ou detalhe arquitetônico (referência à Polônia) | Vertical |
-| `sobre-2` | "A hospedagem" (canto inferior) | Jardim / plantas | Horizontal |
-| `sobre-3` | "A hospedagem" (miniatura) | Detalhe de decoração | Quadrada |
-| `quarto-queen-jardim` | Acomodações · card 01 | Quarto Queen com Vista para o Jardim | Vertical (4:5) |
-| `quarto-suite-deluxe` | Acomodações · card 02 | Suíte Deluxe Queen-size | Vertical (4:5) |
-| `quarto-duplo` | Acomodações · card 03 | Quarto Duplo Amplo (2 solteiro) | Vertical (4:5) |
-| `quarto-triplo` | Acomodações · card 04 | Quarto Triplo Comfort (3 solteiro) | Vertical (4:5) |
+| `hero` | Abertura (metade direita da tela) | Fachada da casa, de preferência com luz natural bonita. É a foto mais importante. | Vertical ou quase quadrada (4:5), ≥ 2000 px |
+| `hero-2` | Abertura (foto menor sobreposta, só no desktop) | Detalhe da casa ou de um ambiente | Vertical/quadrada |
+| `sobre-1` | "A hospedagem" (foto grande) | Fachada ou detalhe arquitetônico (referência à Polônia) | Vertical |
+| `sobre-2` | "A hospedagem" (canto superior) | Jardim / plantas | Horizontal |
+| `sobre-3` | "A hospedagem" (canto inferior) | Sala de estar ou detalhe de decoração | Horizontal |
+| `quarto-queen-jardim` | Acomodações · card 01 | Quarto Queen com Vista para o Jardim | Horizontal (5:4) |
+| `quarto-suite-deluxe` | Acomodações · card 02 | Suíte Deluxe Queen-size | Horizontal (5:4) |
+| `quarto-duplo` | Acomodações · card 03 | Quarto Duplo Amplo (2 solteiro) | Horizontal (5:4) |
+| `quarto-triplo` | Acomodações · card 04 | Quarto Triplo Comfort (3 solteiro) | Horizontal (5:4) |
 | `gal-01` | Galeria (destaque grande) | Fachada | Horizontal |
 | `gal-02` | Galeria | Jardim | Horizontal |
 | `gal-03` | Galeria | Quarto | Horizontal |

@@ -32,7 +32,7 @@ $env:NEXT_PUBLIC_BASE_PATH="/willa-hala-demo"; npm run build
 
 Nenhuma foto de terceiros foi copiada (Instagram/Booking): pertencem à hospedagem. Cada espaço de imagem exibe uma
 ilustração até o acervo oficial ser enviado. Para trocar por fotos reais **sem alterar código**:
-veja [`docs/FOTOS.md`](docs/FOTOS.md) (lista dos 23 slots) e rode `npm run photos -- ./pasta-das-fotos`.
+veja [`docs/FOTOS.md`](docs/FOTOS.md) (lista dos 24 slots) e rode `npm run photos -- ./pasta-das-fotos`.
 
 ## Onde editar o conteúdo
 
